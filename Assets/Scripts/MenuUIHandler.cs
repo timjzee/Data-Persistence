@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,8 +13,17 @@ using UnityEditor;
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI inputField;
+    private void Start()
+    {
+        ScoreManager.Instance.LoadScore();
+        highScoreText.text = "Best Score : " + ScoreManager.Instance.bestPlayer + " : " + ScoreManager.Instance.bestScore;
+    }
+
     public void StartNew()
     {
+        ScoreManager.Instance.currentPlayer = inputField.text;
         SceneManager.LoadScene(1);
     }
 
